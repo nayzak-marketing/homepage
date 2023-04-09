@@ -15,31 +15,30 @@
       text-align: center;
       padding: 0 10px; /* Add padding to create a gap between words */
       box-sizing: border-box; /* Make sure the padding is included in the element's width */
-      position: relative; /* Add a position property to the elements to enable absolute positioning for the word-content element */
+      position: relative;
+      overflow: hidden;
     }
-    .word-content {
-      position: absolute; /* Use absolute positioning to enable the swipe effect */
-      top: 0; /* Position the word-content element at the top of the parent element */
-      left: 0; /* Position the word-content element at the left of the parent element */
-      width: 100%; /* Set the width of the word-content element to the width of the parent element */
-      height: 100%; /* Set the height of the word-content element to the height of the parent element */
-      display: flex; /* Use flexbox to center the text vertically and horizontally */
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.5s ease-in-out; /* Add a transition effect for the swipe */
+    .random-word span {
+      display: inline-block;
+      position: absolute;
+      animation: swipeUp 500ms ease-out;
+    }
+    @keyframes swipeUp {
+      0% {
+        transform: translateY(100%);
+      }
+      100% {
+        transform: translateY(0%);
+      }
     }
   </style>
 </head>
 <body>
   <h1 id="random-title">
     <span class="static-word">Good</span>
-    <span class="random-word">
-      <span class="word-content">Deeds</span>
-    </span>
+    <span class="random-word"><span>Deeds</span></span>
     <span class="static-word">Grows</span>
-    <span class="random-word">
-      <span class="word-content">Wonders</span>
-    </span>
+    <span class="random-word"><span>Wonders</span></span>
   </h1>
 
   <script>
@@ -51,29 +50,15 @@
       return words[randomIndex];
     }
 
-    function swipeOut(element) {
-      const wordContent = element.querySelector(".word-content");
-      wordContent.style.transform = "translateY(-100%)";
-    }
-
-    function swipeIn(element, word) {
-      const wordContent = element.querySelector(".word-content");
-      wordContent.textContent = word;
-      wordContent.style.transition = "none";
-      wordContent.style.transform = "translateY(100%)";
-      setTimeout(() => {
-        wordContent.style.transition = "transform 0.5s ease-in-out";
-        wordContent.style.transform = "translateY(0)";
-      }, 50);
-    }
-
     function updateTitle() {
       const titleElement = document.getElementById("random-title");
       const randomWordsElements = titleElement.getElementsByClassName("random-word");
-      const randomWord1 = getRandomWord(randomWords1);
-      const randomWord2 = getRandomWord(randomWords2);
-      swipeOut(randomWordsElements[0]);
-      swipeOut(randomWordsElements[1]);
-      setTimeout(() => {
-        swipeIn(randomWordsElements[0], randomWord1);
-        swipeIn(randomWordsElements
+      randomWordsElements[0].innerHTML = `<span>${getRandomWord(randomWords1)}</span>`;
+      randomWordsElements[1].innerHTML = `<span>${getRandomWord(randomWords2)}</span>`;
+    }
+
+    // Automatically update the title every 2.5 seconds
+    setInterval(updateTitle, 2500);
+  </script>
+</body>
+</html>
