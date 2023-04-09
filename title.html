@@ -10,15 +10,15 @@
       font-weight: bold;
       display: inline-flex;
     }
-.random-word, .static-word {
-  width: 150px; /* Set a fixed width for each word */
-  text-align: center;
-  padding: 0 5px; /* Adjust padding to reduce the gap between words */
-  box-sizing: border-box; /* Make sure the padding is included in the element's width */
-  position: relative;
-  overflow: visible; /* Show the full word */
-}
-
+    .random-word, .static-word {
+      width: 130px; /* Set a fixed width for each word */
+      margin: 0 5px; /* Add some margin to each element */
+      text-align: center;
+      padding: 0; /* Remove padding */
+      box-sizing: border-box; /* Make sure the padding is included in the element's width */
+      position: relative;
+      overflow: hidden; /* Hide the word that is swiped out */
+    }
     .word-content {
       position: absolute;
       width: 100%;
@@ -28,15 +28,15 @@
 </head>
 <body>
   <h1 id="random-title">
-<span class="static-word" style="width: 60px;">Good</span>
-<span class="random-word" style="width: 150px;">
-  <span class="word-content" style="width: 100%; display: inline-flex; justify-content: center;">Deeds</span>
-</span>
-<span class="static-word" style="width: 60px;">Grows</span>
-<span class="random-word" style="width: 150px;">
-  <span class="word-content" style="width: 100%; display: inline-flex; justify-content: center;">Wonders</span>
-</span>
-
+    <span class="static-word">Good</span>
+    <span class="random-word">
+      <span class="word-content"></span>
+    </span>
+    <span class="static-word">Grows</span>
+    <span class="random-word">
+      <span class="word-content"></span>
+    </span>
+    <span class="static-word">Wonders</span>
   </h1>
 
   <script>
