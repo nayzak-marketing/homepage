@@ -10,14 +10,19 @@
       font-weight: bold;
       display: inline-flex;
     }
-    .random-word {
+    .random-word, .static-word {
       min-width: 100px; /* Adjust this value to prevent size changes */
       text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1 id="random-title">Good <span class="random-word">Deeds</span> Grows <span class="random-word">Wonders</span></h1>
+  <h1 id="random-title">
+    <span class="static-word">Good</span>
+    <span class="random-word">Deeds</span>
+    <span class="static-word">Grows</span>
+    <span class="random-word">Wonders</span>
+  </h1>
 
   <script>
     const randomWords1 = ["Deeds", "Acts", "Behaviour", "Marketing", "Emails", "Caption"];
