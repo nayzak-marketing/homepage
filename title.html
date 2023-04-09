@@ -4,29 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      background-image: url("https://github.com/nayzak-marketing/homepage/blob/main/pexels-linken-12720788.jpg?raw=true");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      background-attachment: fixed;
-      animation: rotation 120s infinite linear;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    
-    @keyframes rotation {
-      0% {
-        background-position: 0% 50%;
-      }
-      100% {
-        background-position: 100% 50%;
-      }
-    }
-
     /* Add any desired styling for the title */
     #random-title {
       font-size: 2rem;
@@ -69,9 +46,42 @@
         transform: translateY(-100%);
       }
     }
+
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      perspective: 1000px;
+      overflow: hidden;
+    }
+
+    #background-rotation {
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("https://github.com/nayzak-marketing/homepage/blob/main/pexels-linken-12720788.jpg?raw=true");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      animation: rotation 120s infinite linear;
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
+  <div id="background-rotation"></div>
   <h1 id="random-title">
     <span class="static-word">Good</span>
     <span class="random-word"><span>Deeds</span><span></span></span>
@@ -84,11 +94,12 @@
     const randomWords2 = ["Wonders", "Miracles", "Success", "Prosperity", "Growth", "Happiness"];
 
     function getRandomWord(words, currentWord) {
-      let randomIndex;
+      let randomWord;
       do {
-        randomIndex = Math.floor(Math.random() * words.length);
-      } while (words[randomIndex] === currentWord);
-      return words[randomIndex];
+        const randomIndex = Math.floor(Math.random() * words.length);
+        randomWord = words[randomIndex];
+      } while (randomWord === currentWord);
+      return randomWord;
     }
 
     function updateTitle() {
@@ -97,7 +108,7 @@
       for (const wordContainer of randomWordsElements) {
         const wordSpans = wordContainer.getElementsByTagName("span");
         const currentWord = wordSpans[0];
-                const nextWord = wordSpans[1];
+        const nextWord = wordSpans[1];
 
         // Set the next word and apply the swipe-in animation
         nextWord.textContent = wordContainer === randomWordsElements[0]
