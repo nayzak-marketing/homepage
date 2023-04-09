@@ -8,34 +8,31 @@
     #random-title {
       font-size: 2rem;
       font-weight: bold;
-      opacity: 1;
-      transition: opacity 0.5s ease;
+      display: inline-flex;
     }
-
-    .transparent {
-      opacity: 0;
+    .random-word {
+      min-width: 100px; /* Adjust this value to prevent size changes */
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1 id="random-title">Goodness Grows Wonders</h1>
+  <h1 id="random-title">Good <span class="random-word">Deeds</span> Grows <span class="random-word">Wonders</span></h1>
 
   <script>
-    const randomWords = ["Deeds", "Acts", "Behaviour", "Marketing", "Emails", "Caption"];
+    const randomWords1 = ["Deeds", "Acts", "Behaviour", "Marketing", "Emails", "Caption"];
+    const randomWords2 = ["Wonders", "Miracles", "Success", "Prosperity", "Growth", "Happiness"];
 
-    function getRandomWord() {
-      const randomIndex = Math.floor(Math.random() * randomWords.length);
-      return randomWords[randomIndex];
+    function getRandomWord(words) {
+      const randomIndex = Math.floor(Math.random() * words.length);
+      return words[randomIndex];
     }
 
     function updateTitle() {
       const titleElement = document.getElementById("random-title");
-      titleElement.classList.add("transparent");
-
-      setTimeout(() => {
-        titleElement.innerHTML = "Good " + getRandomWord() + " Grows Wonders";
-        titleElement.classList.remove("transparent");
-      }, 500);
+      const randomWordsElements = titleElement.getElementsByClassName("random-word");
+      randomWordsElements[0].textContent = getRandomWord(randomWords1);
+      randomWordsElements[1].textContent = getRandomWord(randomWords2);
     }
 
     // Automatically update the title every 2.5 seconds
