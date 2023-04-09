@@ -60,32 +60,13 @@
     const randomWords1 = ["Deeds", "Acts", "Behaviour", "Marketing", "Emails", "Caption"];
     const randomWords2 = ["Wonders", "Miracles", "Success", "Prosperity", "Growth", "Happiness"];
 
-function updateTitle() {
-  const titleElement = document.getElementById("random-title");
-  const randomWordsElements = titleElement.getElementsByClassName("random-word");
-  for (const wordContainer of randomWordsElements) {
-    const wordSpans = wordContainer.getElementsByTagName("span");
-    const currentWord = wordSpans[0];
-    const nextWord = wordSpans[1];
-
-    // Set the next word and apply the swipe-in animation
-    nextWord.textContent = wordContainer === randomWordsElements[0]
-      ? getRandomWord(randomWords1, currentWord.textContent)
-      : getRandomWord(randomWords2, currentWord.textContent);
-    nextWord.classList.add("swipe-in");
-
-    // Apply the swipe-out animation to the current word
-    currentWord.classList.add("swipe-out");
-
-    // After the animation is finished, swap the elements and remove the animation classes
-    setTimeout(() => {
-      currentWord.textContent = nextWord.textContent;
-      currentWord.classList.remove("swipe-out");
-      nextWord.classList.remove("swipe-in");
-    }, 500);
-  }
-}
-
+    function getRandomWord(words, currentWord) {
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * words.length);
+      } while (words[randomIndex] === currentWord);
+      return words[randomIndex];
+    }
 
     function updateTitle() {
       const titleElement = document.getElementById("random-title");
@@ -96,7 +77,9 @@ function updateTitle() {
         const nextWord = wordSpans[1];
 
         // Set the next word and apply the swipe-in animation
-        nextWord.textContent = wordContainer === randomWordsElements[0] ? getRandomWord(randomWords1) : getRandomWord(randomWords2);
+        nextWord.textContent = wordContainer === randomWordsElements[0]
+          ? getRandomWord(randomWords1, currentWord.textContent)
+          : getRandomWord(randomWords2, currentWord.textContent);
         nextWord.classList.add("swipe-in");
 
         // Apply the swipe-out animation to the current word
@@ -107,12 +90,13 @@ function updateTitle() {
           currentWord.textContent = nextWord.textContent;
           currentWord.classList.remove("swipe-out");
           nextWord.classList.remove("swipe-in");
-        }, 500);
+               }, 500);
       }
     }
 
-       // Automatically update the title every 2.5 seconds
+    // Automatically update the title every 2.5 seconds
     setInterval(updateTitle, 2500);
   </script>
 </body>
 </html>
+
