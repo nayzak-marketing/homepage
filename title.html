@@ -10,35 +10,44 @@
       font-weight: bold;
       display: inline-flex;
     }
-    .random-word, .static-word {
+
+    .word-container {
       width: 150px; /* Set a fixed width for each word */
+      height: 50px; /* Set a fixed height for each word container */
       text-align: center;
       padding: 0 5px; /* Adjust padding to reduce the gap between words */
       box-sizing: border-box; /* Make sure the padding is included in the element's width */
+      margin: 0 5px; /* Add a small margin between words */
       position: relative;
       overflow: hidden; /* Hide the word that is swiped out */
     }
+
     .word-content {
       position: absolute;
       width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      top: 50%;
+      transform: translateY(-50%);
       transition: transform 0.5s ease-in-out; /* Add a transition effect for the swipe */
     }
   </style>
 </head>
 <body>
   <h1 id="random-title">
-    <span class="static-word" style="width: 60px;">Good</span>
-    <span class="random-word" style="width: 150px;">
-      <span class="word-content" style="width: 100%;">Deeds</span>
-    </span>
-    <span class="static-word" style="width: 60px;">Grows</span>
-    <span class="random-word" style="width: 150px;">
-      <span class="word-content" style="width: 100%;">Wonders</span>
-    </span>
+    <div class="word-container" style="width: 120px;">
+      <div class="word-content">Good</div>
+    </div>
+    <div class="word-container" style="width: 150px;">
+      <div class="word-content"></div>
+    </div>
+    <div class="word-container" style="width: 120px;">
+      <div class="word-content">Grows</div>
+    </div>
+    <div class="word-container" style="width: 150px;">
+      <div class="word-content"></div>
+    </div>
+    <div class="word-container" style="width: 150px;">
+      <div class="word-content">Wonders</div>
+    </div>
   </h1>
 
   <script>
@@ -52,20 +61,19 @@
 
     function updateTitle() {
       const titleElement = document.getElementById("random-title");
-      const randomWordsElements = Array.from(titleElement.getElementsByClassName("random-word"));
+      const randomWordsElements = Array.from(titleElement.getElementsByClassName("word-content"));
 
       randomWordsElements.forEach((el) => {
-        const wordContent = el.querySelector(".word-content");
-        wordContent.style.transform = "translateY(-100%)";
+        el.style.transform = "translateY(-100%)";
 
         setTimeout(() => {
-          wordContent.textContent = getRandomWord(el === randomWordsElements[0] ? randomWords1 : randomWords2);
-          wordContent.style.transition = "none";
-          wordContent.style.transform = "translateY(100%)";
+          el.textContent = getRandomWord(el.parentElement.classList.contains("random-words-1") ? randomWords1 : randomWords2);
+          el.style.transition = "none";
+          el.style.transform = "translateY(100%)";
 
           setTimeout(() => {
-            wordContent.style.transition = "transform 0.5s ease-in-out";
-            wordContent.style.transform = "translateY(0)";
+            el.style.transition = "transform 0.5s ease-in-out";
+            el.style.transform = "translateY(0)";
           }, 50);
         }, 500);
       });
