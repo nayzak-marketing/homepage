@@ -10,14 +10,15 @@
       font-weight: bold;
       display: inline-flex;
     }
-    .random-word, .static-word {
-      width: 150px; /* Set a fixed width for each word */
-      text-align: center;
-      padding: 0 5px; /* Adjust padding to reduce the gap between words */
-      box-sizing: border-box; /* Make sure the padding is included in the element's width */
-      position: relative;
-      overflow: hidden; /* Hide the word that is swiped out */
-    }
+.random-word, .static-word {
+  width: 150px; /* Set a fixed width for each word */
+  text-align: center;
+  padding: 0 5px; /* Adjust padding to reduce the gap between words */
+  box-sizing: border-box; /* Make sure the padding is included in the element's width */
+  position: relative;
+  overflow: visible; /* Show the full word */
+}
+
     .word-content {
       position: absolute;
       width: 100%;
