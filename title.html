@@ -13,17 +13,24 @@
     .random-word, .static-word {
       width: 150px; /* Set a fixed width for each word */
       text-align: center;
-      padding: 0 10px; /* Add padding to create a gap between words */
+      padding: 0 5px; /* Adjust padding to reduce the gap between words */
       box-sizing: border-box; /* Make sure the padding is included in the element's width */
+      position: relative;
+      overflow: hidden; /* Hide the word that is swiped out */
+    }
+    .word-content {
+      position: absolute;
+      width: 100%;
+      transition: transform 0.5s ease-in-out; /* Add a transition effect for the swipe */
     }
   </style>
 </head>
 <body>
   <h1 id="random-title">
     <span class="static-word">Good</span>
-    <span class="random-word">Deeds</span>
+    <span class="random-word"><span class="word-content">Deeds</span></span>
     <span class="static-word">Grows</span>
-    <span class="random-word">Wonders</span>
+    <span class="random-word"><span class="word-content">Wonders</span></span>
   </h1>
 
   <script>
@@ -38,8 +45,22 @@
     function updateTitle() {
       const titleElement = document.getElementById("random-title");
       const randomWordsElements = titleElement.getElementsByClassName("random-word");
-      randomWordsElements[0].textContent = getRandomWord(randomWords1);
-      randomWordsElements[1].textContent = getRandomWord(randomWords2);
+
+      randomWordsElements.forEach(el => {
+        const wordContent = el.querySelector(".word-content");
+        wordContent.style.transform = "translateY(-100%)";
+        
+        setTimeout(() => {
+          wordContent.textContent = getRandomWord(el === randomWordsElements[0] ? randomWords1 : randomWords2);
+          wordContent.style.transition = "none";
+          wordContent.style.transform = "translateY(100%)";
+          
+          setTimeout(() => {
+            wordContent.style.transition = "transform 0.5s ease-in-out";
+            wordContent.style.transform = "translateY(0)";
+          }, 50);
+        }, 500);
+      });
     }
 
     // Automatically update the title every 2.5 seconds
